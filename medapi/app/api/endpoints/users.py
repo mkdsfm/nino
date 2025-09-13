@@ -31,7 +31,7 @@ def create_user(
     # Create new user
     user = models.User(
         username=user_in.username,
-        age=user_in.age,
+        birthDate=user_in.birthDate,
         gender=user_in.gender,
     )
     db.add(user)
@@ -75,21 +75,17 @@ def update_user(
     """
     Update a user
     """
-    if user_in.username is not None:
-        # Check if new username already exists for a different user
-        existing_user = db.query(models.User).filter(models.User.username == user_in.username).first()
-        if existing_user and existing_user.id != user.id:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Username already registered",
-            )
-        user.username = user_in.username
+    existing_user = db.query(models.User).filter(models.User.username == user_in.username).first()
+    if existing_user and existing_user.id != user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already registered",
+        )
+    user.username = user_in.username
     
-    if user_in.age is not None:
-        user.age = user_in.age
-    
-    if user_in.gender is not None:
-        user.gender = user_in.gender
+    user.birthDate = user_in.birthDate
+
+    user.gender = user_in.gender
     
     db.add(user)
     db.commit()

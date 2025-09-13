@@ -20,7 +20,7 @@ class UserCreate(UserBase):
 
 # Properties to receive on user update
 class UserUpdate(UserBase):
-    username: Optional[str] = None
+    username: str
 
 
 # Properties shared by models stored in DB
