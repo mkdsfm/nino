@@ -9,7 +9,7 @@ from app.db.models import Gender
 # Shared properties
 class UserBase(BaseModel):
     username: str
-    birthDate: Optional[int] = None
+    birthDate: Optional[datetime] = None
     gender: Optional[Gender] = None
 
 
